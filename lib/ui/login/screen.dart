@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ne_kidaem_test/ui/constants.dart';
+import 'package:ne_kidaem_test/ui/tasks_list/screen.dart';
 
 import 'widgets/button.dart';
 import 'widgets/field.dart';
 
 class LoginPage extends StatefulWidget {
+  static const route = 'login';
+
   LoginPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
@@ -52,5 +55,6 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       // Send to server
     }
+    Navigator.of(context).pushNamed(TasksListPage.route);
   }
 }

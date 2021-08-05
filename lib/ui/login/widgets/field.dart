@@ -5,7 +5,6 @@ import '../../constants.dart';
 class LoginField extends StatelessWidget {
   final bool obscureText;
   final String hintText;
-  // final FormFieldValidator<String> validator;
   final bool Function(String? value) validationRule;
   final String errorText;
 
@@ -13,7 +12,6 @@ class LoginField extends StatelessWidget {
     Key? key,
     this.obscureText = false,
     required this.hintText,
-    // required this.validator,
     required this.validationRule,
     required this.errorText,
   }) : super(key: key);
