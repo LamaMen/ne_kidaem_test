@@ -9,7 +9,7 @@ import 'widgets/field.dart';
 class LoginPage extends StatefulWidget {
   static const route = 'login';
 
-  LoginPage({Key? key, required this.title}) : super(key: key);
+  LoginPage(this.title, {Key? key}) : super(key: key);
   final String title;
 
   @override

@@ -22,23 +22,29 @@ class MyApp extends StatelessWidget {
   Route? _getRoute(RouteSettings settings) {
     switch (settings.name) {
       case LoginPage.route:
-        return RouteBuilder(
-          widget: LoginPage(title: title),
-          settings: settings,
-        );
+        return SlideRightRoute(page: LoginPage(title));
       case TasksListPage.route:
-        return RouteBuilder(
-          widget: TasksListPage(title: title),
-          settings: settings,
-        );
+        return SlideRightRoute(page: TasksListPage(title));
     }
   }
 }
 
-class RouteBuilder extends PageRouteBuilder {
-  RouteBuilder({required Widget widget, required RouteSettings settings})
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+
+  SlideRightRoute({required this.page})
       : super(
-          pageBuilder: (context, animation, secondaryAnimation) => widget,
-          settings: settings,
+          pageBuilder: (BuildContext context, Animation<double> animation,
+                  Animation<double> secondaryAnimation) =>
+              page,
+          transitionsBuilder: (BuildContext context,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation,
+                  Widget child) =>
+              SlideTransition(
+            position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)
+                .animate(animation),
+            child: child,
+          ),
         );
 }
