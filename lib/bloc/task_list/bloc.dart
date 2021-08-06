@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_kidaem_test/bloc/task_list/events.dart';
 import 'package:ne_kidaem_test/bloc/task_list/states.dart';
-import 'package:ne_kidaem_test/domain/repositories/login.dart';
+import 'package:ne_kidaem_test/domain/exceptions/user.dart';
 import 'package:ne_kidaem_test/domain/repositories/tasks.dart';
 
 class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {

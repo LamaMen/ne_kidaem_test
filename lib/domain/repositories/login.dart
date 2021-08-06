@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:ne_kidaem_test/domain/exceptions/user.dart';
 import 'package:ne_kidaem_test/domain/network/http_client.dart';
 import 'package:universal_html/html.dart';
 
 class LoginRepository {
-  static const LOGIN_URL = '/api/v1/users';
+  static const LOGIN_URL = '/users';
   final HttpClient client;
 
   LoginRepository(this.client);
@@ -25,5 +26,3 @@ class LoginRepository {
     }
   }
 }
-
-class UserUnauthorizedException implements Exception {}

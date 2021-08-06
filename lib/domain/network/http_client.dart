@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:ne_kidaem_test/domain/exceptions/network.dart';
 
 import 'package:ne_kidaem_test/domain/network/uri_builder.dart';
 
@@ -34,5 +35,3 @@ class HttpClient {
     }
   }
 }
-
-class RequestException implements Exception {}

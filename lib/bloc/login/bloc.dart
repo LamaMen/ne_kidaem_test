@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_kidaem_test/bloc/login/events.dart';
 import 'package:ne_kidaem_test/bloc/login/states.dart';
+import 'package:ne_kidaem_test/domain/exceptions/user.dart';
 import 'package:ne_kidaem_test/domain/repositories/login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
