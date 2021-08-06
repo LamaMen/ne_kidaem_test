@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
           isLoad: state is LoginLoad,
         ),
         if (state is LoginFailure)
-          Text('Invalid user data', style: TextStyle(color: Colors.red[400]))
+          Text(state.message, style: TextStyle(color: Colors.red[400]))
       ],
     );
   }
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
     if (state is LoginSuccess) {
       _navigate(context, state.token);
     }
-    if (state is LoginFailure) {
+    if (state is LoginFailure && state.code == LoginFailure.AUTH_ERROR_CODE) {
       _passwordController.clear();
     }
   }

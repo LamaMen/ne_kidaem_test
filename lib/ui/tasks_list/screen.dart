@@ -7,7 +7,6 @@ import 'package:ne_kidaem_test/domain/models/task.dart';
 import 'package:ne_kidaem_test/ui/tasks_list/widget/center_text.dart';
 import 'package:ne_kidaem_test/ui/tasks_list/widget/list.dart';
 
-
 class TasksListPage extends StatelessWidget {
   static const route = 'list';
   final String title;
@@ -41,7 +40,7 @@ class TasksListPage extends StatelessWidget {
             if (state is TaskListInitial) children = _list(List.empty());
             if (state is TaskListSuccess) children = _list(state.tasks);
             if (state is TaskListLoad) children = _load();
-            if (state is TaskListFailure) children = _failure();
+            if (state is TaskListFailure) children = _failure(state.message);
 
             return TabBarView(children: children);
           },
@@ -51,12 +50,8 @@ class TasksListPage extends StatelessWidget {
     );
   }
 
-  List<Widget> _failure() {
-    return _generateTabs(
-      (index) => CenterText(
-        'An error occurred while loading data. Check your internet connection or try again later.',
-      ),
-    );
+  List<Widget> _failure(String message) {
+    return _generateTabs((index) => CenterText(message));
   }
 
   List<Widget> _load() {

@@ -16,8 +16,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final answer = await _repository.login(event.username, event.password);
         emit(LoginSuccess(answer));
         reset();
+      } on UserUnauthorizedException {
+        emit(LoginFailure.auth());
       } catch (e) {
-        emit(LoginFailure());
+        emit(LoginFailure.internet());
       }
     }
   }
