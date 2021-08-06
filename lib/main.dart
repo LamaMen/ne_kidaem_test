@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ne_kidaem_test/bloc/login/bloc.dart';
 import 'package:ne_kidaem_test/bloc/task_list/bloc.dart';
+import 'package:ne_kidaem_test/domain/network/http_client.dart';
+import 'package:ne_kidaem_test/domain/repositories/login.dart';
+import 'package:ne_kidaem_test/domain/repositories/tasks.dart';
 import 'package:ne_kidaem_test/ui/login/screen.dart';
 import 'package:ne_kidaem_test/ui/tasks_list/screen.dart';
-
-import 'bloc/login/bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,10 +17,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final client = HttpClient();
+    final loginRepository = LoginRepository(client);
+    final tasksRepository = TaskRepository(client);
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => LoginBloc()),
-        BlocProvider(create: (BuildContext context) => TaskListBloc()),
+        BlocProvider(
+          lazy: false,
+          create: (BuildContext context) => LoginBloc(loginRepository),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (BuildContext context) => TaskListBloc(tasksRepository),
+        ),
       ],
       child: MaterialApp(
         title: title,

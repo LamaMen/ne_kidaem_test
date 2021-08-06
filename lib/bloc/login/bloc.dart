@@ -1,18 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_kidaem_test/bloc/login/events.dart';
 import 'package:ne_kidaem_test/bloc/login/states.dart';
+import 'package:ne_kidaem_test/domain/repositories/login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial());
+  final LoginRepository _repository;
+
+  LoginBloc(this._repository) : super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is DataEntered) {
       emit(LoginLoad());
-      await Future.delayed(
-          Duration(seconds: 1)); // send request for auth and validate
-      emit(LoginSuccess('${event.username} ${event.password}'));
-      reset();
+      try {
+        final answer = await _repository.login(event.username, event.password);
+        emit(LoginSuccess(answer));
+        reset();
+      } catch (e) {
+        emit(LoginFailure());
+      }
     }
   }
 

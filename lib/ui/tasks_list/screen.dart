@@ -18,12 +18,13 @@ class TasksListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<TaskListBloc>(context);
-    bloc.add(TaskBeginLoad());
+    bloc.add(TaskBeginLoad(token));
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('$title $token'),
+          title: Text('$title'),
           bottom: TabBar(
             tabs: [
               Tab(text: 'On hold'),

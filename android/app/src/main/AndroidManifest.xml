@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ne_kidaem_test">
+
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="ne_kidaem_test"
         android:icon="@mipmap/ic_launcher">
