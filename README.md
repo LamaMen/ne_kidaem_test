@@ -1,16 +1,16 @@
-# ne_kidaem_test
+# NeKidaem Test Task
 
-Тестовое задание для НеКидаем
+Test task for NeKidaem
 
-## Getting Started
+## First screen:
+1. Login form "login and password"
+2. You need to log in to the back with login data.
+3. In case of incorrect data entry, display the errors returned by the server.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Second screen:
+1. We display the lists “On hold”, “In progress”, “Needs review”, “Approved”
+2. We display cards in these lists.
+3. Do NOT drag and drop between lists.
+4. One list should be visible on the screen at a time.
+5. Switching between lists should be done by swiping left or right.
+6. There should be an exit button on the screen.
