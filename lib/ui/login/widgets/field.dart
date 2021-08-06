@@ -4,6 +4,7 @@ import '../../constants.dart';
 
 class LoginField extends StatelessWidget {
   final bool obscureText;
+  final TextEditingController controller;
   final String hintText;
   final bool Function(String? value) validationRule;
   final String errorText;
@@ -14,6 +15,7 @@ class LoginField extends StatelessWidget {
     required this.hintText,
     required this.validationRule,
     required this.errorText,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class LoginField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: defaultPadding),
       child: TextFormField(
         obscureText: obscureText,
+        controller: controller,
         textAlign: TextAlign.center,
         decoration: _loginFieldDecoration,
         autovalidateMode: AutovalidateMode.onUserInteraction,

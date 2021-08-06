@@ -4,10 +4,11 @@ import '../../constants.dart';
 
 class LoginButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final bool isLoad;
 
   const LoginButton({
     Key? key,
-    required this.onPressed,
+    required this.onPressed, required this.isLoad,
   }) : super(key: key);
 
   @override
@@ -25,11 +26,24 @@ class LoginButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: _buttonStyle,
-        child: Text(
-          'Log In',
-          style: Theme.of(context).textTheme.headline6,
-        ),
+        child: _getBody(context),
       ),
     );
+  }
+
+  Widget _getBody(BuildContext context) {
+    if (isLoad) {
+      return CircularProgressIndicator(
+        color: Colors.yellow,
+      );
+    } else {
+      return Text(
+        'Log In',
+        style: Theme
+            .of(context)
+            .textTheme
+            .headline6,
+      );
+    }
   }
 }

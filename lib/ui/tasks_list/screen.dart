@@ -6,6 +6,8 @@ import 'models/task.dart';
 class TasksListPage extends StatelessWidget {
   static const route = 'list';
   final String title;
+  final String token;
+
   final tasks = [
     Task(id: 1, title: 'task 1', category: TaskCategory.Approved),
     Task(id: 2, title: 'task 2', category: TaskCategory.InProgress),
@@ -15,7 +17,7 @@ class TasksListPage extends StatelessWidget {
     Task(id: 6, title: 'task 6', category: TaskCategory.Approved),
   ];
 
-  TasksListPage(this.title, {Key? key}) : super(key: key);
+  TasksListPage(this.title, {Key? key, required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class TasksListPage extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text('$title $token'),
           bottom: TabBar(
             tabs: [
               Tab(text: 'On hold'),
