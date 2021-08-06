@@ -7,11 +7,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is OnDataEntered) {
+    if (event is DataEntered) {
       emit(LoginLoad());
-      // send request for auth and validate
-      await Future.delayed(Duration(seconds: 1));
-      emit(LoginCorrect('${event.username} ${event.password}'));
+      await Future.delayed(
+          Duration(seconds: 1)); // send request for auth and validate
+      emit(LoginSuccess('${event.username} ${event.password}'));
       reset();
     }
   }

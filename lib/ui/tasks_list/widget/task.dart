@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ne_kidaem_test/domain/models/task.dart';
 import 'package:ne_kidaem_test/ui/constants.dart';
-import 'package:ne_kidaem_test/ui/tasks_list/models/task.dart';
 
 class TaskItem extends StatelessWidget {
   final Task task;

@@ -36,10 +36,10 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 4 * defaultPadding),
             child: BlocConsumer<LoginBloc, LoginState>(
               listenWhen: (previous, current) {
-                return current is LoginCorrect || current is LoginWrongData;
+                return current is LoginSuccess || current is LoginFailure;
               },
               listener: _stateListener,
-              buildWhen: (previous, current) => !(current is LoginCorrect),
+              buildWhen: (previous, current) => !(current is LoginSuccess),
               builder: _body,
             ),
           ),
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () => _logIn(context),
           isLoad: state is LoginLoad,
         ),
-        if (state is LoginWrongData)
+        if (state is LoginFailure)
           Text('Invalid user data', style: TextStyle(color: Colors.red[400]))
       ],
     );
@@ -80,16 +80,16 @@ class _LoginPageState extends State<LoginPage> {
       final bloc = BlocProvider.of<LoginBloc>(context);
       final username = _usernameController.text;
       final password = _passwordController.text;
-      bloc.add(OnDataEntered(username: username, password: password));
+      bloc.add(DataEntered(username: username, password: password));
     }
     FocusScope.of(context).unfocus();
   }
 
   void _stateListener(BuildContext context, LoginState state) {
-    if (state is LoginCorrect) {
+    if (state is LoginSuccess) {
       _navigate(context, state.token);
     }
-    if (state is LoginWrongData) {
+    if (state is LoginFailure) {
       _passwordController.clear();
     }
   }

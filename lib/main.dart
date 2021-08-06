@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ne_kidaem_test/bloc/task_list/bloc.dart';
 import 'package:ne_kidaem_test/ui/login/screen.dart';
 import 'package:ne_kidaem_test/ui/tasks_list/screen.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => LoginBloc()),
+        BlocProvider(create: (BuildContext context) => TaskListBloc()),
       ],
       child: MaterialApp(
         title: title,

@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ne_kidaem_test/bloc/task_list/bloc.dart';
+import 'package:ne_kidaem_test/bloc/task_list/events.dart';
+import 'package:ne_kidaem_test/bloc/task_list/states.dart';
+import 'package:ne_kidaem_test/domain/models/task.dart';
+import 'package:ne_kidaem_test/ui/tasks_list/widget/center_text.dart';
 import 'package:ne_kidaem_test/ui/tasks_list/widget/list.dart';
 
-import 'models/task.dart';
 
 class TasksListPage extends StatelessWidget {
   static const route = 'list';
   final String title;
   final String token;
 
-  final tasks = [
-    Task(id: 1, title: 'task 1', category: TaskCategory.Approved),
-    Task(id: 2, title: 'task 2', category: TaskCategory.InProgress),
-    Task(id: 3, title: 'task 3', category: TaskCategory.NeedsReview),
-    Task(id: 4, title: 'task 4', category: TaskCategory.OnHold),
-    Task(id: 5, title: 'task 5', category: TaskCategory.NeedsReview),
-    Task(id: 6, title: 'task 6', category: TaskCategory.Approved),
-  ];
-
   TasksListPage(this.title, {Key? key, required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<TaskListBloc>(context);
+    bloc.add(TaskBeginLoad());
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -35,31 +33,45 @@ class TasksListPage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            CategoryList(
-              tasks: _selectTaskByCategory(TaskCategory.OnHold),
-              isLoad: false,
-            ),
-            CategoryList(
-              tasks: _selectTaskByCategory(TaskCategory.InProgress),
-              isLoad: false,
-            ),
-            CategoryList(
-              tasks: _selectTaskByCategory(TaskCategory.NeedsReview),
-              isLoad: false,
-            ),
-            CategoryList(
-              tasks: _selectTaskByCategory(TaskCategory.Approved),
-              isLoad: false,
-            ),
-          ],
+        body: BlocBuilder<TaskListBloc, TaskListState>(
+          builder: (context, state) {
+            late List<Widget> children;
+
+            if (state is TaskListInitial) children = _list(List.empty());
+            if (state is TaskListSuccess) children = _list(state.tasks);
+            if (state is TaskListLoad) children = _load();
+            if (state is TaskListFailure) children = _failure();
+
+            return TabBarView(children: children);
+          },
         ),
+        //
       ),
     );
   }
 
-  List<Task> _selectTaskByCategory(TaskCategory category) {
+  List<Widget> _failure() {
+    return _generateTabs(
+      (index) => CenterText(
+        'An error occurred while loading data. Check your internet connection or try again later.',
+      ),
+    );
+  }
+
+  List<Widget> _load() {
+    return _generateTabs((index) => Center(child: CircularProgressIndicator()));
+  }
+
+  List<Widget> _list(List<Task> tasks) {
+    return _generateTabs((index) => CategoryList(
+        tasks: _selectTaskByCategory(tasks, TaskCategory.values[index])));
+  }
+
+  List<Widget> _generateTabs(Widget generator(int index)) {
+    return List.generate(4, generator);
+  }
+
+  List<Task> _selectTaskByCategory(List<Task> tasks, TaskCategory category) {
     return tasks.where((task) => task.checkCategory(category)).toList();
   }
 }
